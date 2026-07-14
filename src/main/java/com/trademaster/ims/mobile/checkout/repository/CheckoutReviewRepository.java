@@ -1,0 +1,1 @@
+package com.trademaster.ims.mobile.checkout.repository;import com.trademaster.ims.mobile.checkout.model.CheckoutReview;import org.springframework.data.jpa.repository.JpaRepository;import java.util.Optional;public interface CheckoutReviewRepository extends JpaRepository<CheckoutReview,String>{Optional<CheckoutReview>findByIdAndAccountId(String id,Long account);}

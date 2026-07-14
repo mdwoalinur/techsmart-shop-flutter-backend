@@ -1,0 +1,1 @@
+package com.trademaster.ims.mobile.checkout.repository;import com.trademaster.ims.mobile.checkout.model.CustomerOrderItem;import org.springframework.data.jpa.repository.JpaRepository;import java.util.List;public interface CustomerOrderItemRepository extends JpaRepository<CustomerOrderItem,Long>{List<CustomerOrderItem>findByOrderIdOrderByIdAsc(Long orderId);}

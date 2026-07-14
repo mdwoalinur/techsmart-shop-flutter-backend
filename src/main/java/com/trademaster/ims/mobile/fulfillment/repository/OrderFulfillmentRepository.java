@@ -1,0 +1,3 @@
+package com.trademaster.ims.mobile.fulfillment.repository;
+import com.trademaster.ims.mobile.fulfillment.model.OrderFulfillment;import jakarta.persistence.LockModeType;import org.springframework.data.jpa.repository.*;import org.springframework.data.repository.query.Param;import java.util.*;
+public interface OrderFulfillmentRepository extends JpaRepository<OrderFulfillment,Long>,JpaSpecificationExecutor<OrderFulfillment>{Optional<OrderFulfillment>findByOrderNumber(String n);Optional<OrderFulfillment>findByOrder_Id(Long orderId);boolean existsByFulfillmentNumber(String n);@Lock(LockModeType.PESSIMISTIC_WRITE)@Query("select f from OrderFulfillment f where f.orderNumber=:n")Optional<OrderFulfillment>lockByOrderNumber(@Param("n")String n);}

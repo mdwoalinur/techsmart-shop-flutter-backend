@@ -1,0 +1,3 @@
+package com.trademaster.ims.mobile.fulfillment.repository;
+import com.trademaster.ims.mobile.fulfillment.model.CODCollection;import org.springframework.data.jpa.repository.*;import java.util.*;
+public interface CODCollectionRepository extends JpaRepository<CODCollection,Long>{Optional<CODCollection>findByOrderId(Long id);Optional<CODCollection>findByPaymentId(Long id);boolean existsByReconciliationReference(String ref);}

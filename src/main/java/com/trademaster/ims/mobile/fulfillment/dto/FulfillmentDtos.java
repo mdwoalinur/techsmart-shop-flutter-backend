@@ -1,0 +1,13 @@
+package com.trademaster.ims.mobile.fulfillment.dto;
+import jakarta.validation.constraints.*;import java.math.BigDecimal;import java.time.*;import java.util.*;
+public final class FulfillmentDtos{private FulfillmentDtos(){}
+ public record FulfillmentPage(List<FulfillmentSummary>content,int page,int size,long totalElements,int totalPages,boolean first,boolean last){}
+ public record FulfillmentSummary(String orderNumber,String fulfillmentNumber,String orderStatus,String paymentStatus,String accountingStatus,String fulfillmentStatus,boolean stockDeducted,String deliveryPartner,String trackingNumber,LocalDate estimatedDeliveryDate,Instant deliveredAt,BigDecimal grandTotal){}
+ public record FulfillmentDetail(String orderNumber,String fulfillmentNumber,String orderStatus,String paymentStatus,String accountingStatus,String fulfillmentStatus,boolean stockDeducted,Long warehouseId,String deliveryPartner,String trackingNumber,LocalDate estimatedDeliveryDate,Instant packedAt,Instant shippedAt,Instant outForDeliveryAt,Instant deliveredAt,String codStatus,List<FulfillmentHistoryItem>history,List<DeliveryEventItem>events){}
+ public record FulfillmentHistoryItem(String previousStatus,String newStatus,String note,String customerVisibleNote,String actorType,String actorReference,Instant occurredAt){}
+ public record DeliveryEventItem(String eventType,String title,String description,String location,boolean customerVisible,Instant occurredAt){}
+ public record TransitionRequest(@Size(max=700)String note,@Size(max=700)String customerVisibleNote,Long warehouseId,@Size(max=120)String deliveryPartner,@Size(max=120)String trackingNumber,LocalDate estimatedDeliveryDate,@Size(max=120)String deliveryContactName,@Size(max=30)String deliveryContactPhone,BigDecimal collectedAmount){}
+ public record DeliveryEventRequest(@NotBlank String eventType,@NotBlank @Size(max=160)String title,@Size(max=700)String description,@Size(max=160)String location,Boolean customerVisible,Instant occurredAt){}
+ public record OrderTrackingResponse(String orderNumber,String orderStatus,String fulfillmentStatus,String paymentStatus,String codStatus,String deliveryMethodName,LocalDate estimatedDeliveryDate,String deliveryPartner,String trackingNumber,String deliveryContactPhone,Instant deliveredAt,String currentStep,List<TrackingStep>steps,List<DeliveryEventItem>deliveryEvents){}
+ public record TrackingStep(String key,String title,String description,String status,Instant timestamp){}
+}

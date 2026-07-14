@@ -1,0 +1,3 @@
+package com.trademaster.ims.mobile.fulfillment.repository;
+import com.trademaster.ims.mobile.fulfillment.model.DeliveryEvent;import org.springframework.data.jpa.repository.JpaRepository;import java.util.*;
+public interface DeliveryEventRepository extends JpaRepository<DeliveryEvent,Long>{List<DeliveryEvent>findByFulfillmentIdOrderByOccurredAtAsc(Long id);List<DeliveryEvent>findByFulfillmentIdAndCustomerVisibleTrueOrderByOccurredAtAsc(Long id);}

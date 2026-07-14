@@ -1,0 +1,2 @@
+package com.trademaster.ims.mobile.checkout.repository;import com.trademaster.ims.mobile.checkout.model.CustomerAddress;import org.springframework.data.jpa.repository.JpaRepository;import java.util.*;
+public interface CustomerAddressRepository extends JpaRepository<CustomerAddress,Long>{List<CustomerAddress>findByAccountIdAndActiveTrueOrderByDefaultAddressDescIdAsc(Long a);Optional<CustomerAddress>findByIdAndAccountIdAndActiveTrue(Long id,Long a);long countByAccountIdAndActiveTrue(Long a);}

@@ -1,0 +1,3 @@
+package com.trademaster.ims.mobile.payments.repository;
+import com.trademaster.ims.mobile.payments.model.PaymentAttempt;import org.springframework.data.jpa.repository.JpaRepository;import java.util.*;
+public interface PaymentAttemptRepository extends JpaRepository<PaymentAttempt,Long>{Optional<PaymentAttempt>findByAccountIdAndOrderIdAndIdempotencyKey(Long accountId,Long orderId,String key);List<PaymentAttempt>findByPaymentIdOrderByAttemptNumberAsc(Long paymentId);Optional<PaymentAttempt>findTopByPaymentIdOrderByAttemptNumberDesc(Long paymentId);Optional<PaymentAttempt>findByPaymentIdAndAttemptNumber(Long paymentId,int attemptNumber);Optional<PaymentAttempt>findByGatewaySessionId(String gatewaySessionId);}

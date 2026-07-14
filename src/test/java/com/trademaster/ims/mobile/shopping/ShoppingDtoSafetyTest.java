@@ -1,0 +1,3 @@
+package com.trademaster.ims.mobile.shopping;
+import com.fasterxml.jackson.databind.ObjectMapper; import com.trademaster.ims.mobile.shopping.dto.ShoppingDtos.*; import org.junit.jupiter.api.Test; import java.math.BigDecimal; import static org.junit.jupiter.api.Assertions.*;
+class ShoppingDtoSafetyTest {@Test void cartItemUsesDeterministicSubtotalAndExposesNoInternalFields()throws Exception{CartItemResponse item=new CartItemResponse(1L,2L,null,"Phone","P1","SKU",null,null,new BigDecimal("10.25"),3,new BigDecimal("30.75"),"In Stock",true,null);String json=new ObjectMapper().writeValueAsString(item);assertTrue(json.contains("30.75"));assertFalse(json.contains("buyingPrice"));assertFalse(json.contains("warehouse"));assertFalse(json.contains("availableQuantity"));}}

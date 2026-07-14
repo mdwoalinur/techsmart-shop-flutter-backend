@@ -1,0 +1,3 @@
+package com.trademaster.ims.mobile.fulfillment.repository;
+import com.trademaster.ims.mobile.fulfillment.model.FulfillmentStatusHistory;import org.springframework.data.jpa.repository.JpaRepository;import java.util.*;
+public interface FulfillmentStatusHistoryRepository extends JpaRepository<FulfillmentStatusHistory,Long>{List<FulfillmentStatusHistory>findByFulfillmentIdOrderByOccurredAtAsc(Long id);}
