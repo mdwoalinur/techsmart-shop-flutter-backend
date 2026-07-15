@@ -1,78 +1,74 @@
-# TradeMaster Spring Boot Backend
+# TechSmart Shop Flutter Backend
 
-Spring Boot REST backend for TradeMaster Inventory and Stock Management.
+Spring Boot REST API backend for the **TechSmart Shop Flutter E-Commerce Application**.
+
+<p>
+  <img src="https://img.shields.io/badge/Java-17-orange?style=flat-square" alt="Java 17">
+  <img src="https://img.shields.io/badge/Spring%20Boot-Backend-6DB33F?style=flat-square&logo=springboot&logoColor=white" alt="Spring Boot">
+  <img src="https://img.shields.io/badge/MySQL-Database-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL">
+  <img src="https://img.shields.io/badge/Spring%20Security-JWT-6DB33F?style=flat-square&logo=springsecurity&logoColor=white" alt="Spring Security">
+  <img src="https://img.shields.io/badge/Maven-Build-C71A36?style=flat-square&logo=apachemaven&logoColor=white" alt="Maven">
+</p>
+
+## Overview
+
+TechSmart Shop Flutter Backend provides secure REST APIs for customer authentication, product browsing, cart and checkout workflows, mobile wallet payments, cash on delivery, order processing, fulfillment, delivery tracking, notifications, returns, cancellations, and customer account management.
+
+This backend is designed to work with the TechSmart Shop Flutter frontend.
+
+## Related Repository
+
+- Flutter Frontend: https://github.com/mdwoalinur/techsmart-shop-flutter-frontend
+
+## Main Features
+
+- Customer authentication and secured API access
+- Product and product variation management
+- Product browsing and search
+- Shopping cart and checkout support
+- Customer profile management
+- Order creation and order history
+- Order details and status timeline
+- Order cancellation workflow
+- Return request workflow
+- Mobile wallet payment simulation
+- Cash on delivery support
+- Payment verification and status management
+- Fulfillment and operational order processing
+- Stock deduction with duplicate-protection logic
+- Delivery tracking
+- COD collection and reconciliation
+- Customer notifications
+- Notification preferences
+- Email communication foundation
+- Customer data isolation
+- File upload and secured download support
+
+## Technology Stack
+
+- Java 17
+- Spring Boot
+- Spring Security
+- Spring Data JPA
+- Hibernate
+- MySQL
+- Maven
+- JWT Authentication
+- REST API
+- AOP Auditing
+- SQL-based schema migration scripts
 
 ## Requirements
 
 - Java 17
-- MySQL with database `trademaster` (or a configured database URL)
+- MySQL
 - Maven 3.9+
+- A configured database
 
-## Required environment variables
+## Required Environment Variables
 
 ```text
 TRADEMASTER_DB_URL=jdbc:mysql://localhost:3306/trademaster
 TRADEMASTER_DB_USERNAME=root
 TRADEMASTER_DB_PASSWORD=<database password>
-TRADEMASTER_JWT_SECRET=<random secret containing at least 64 characters for HS512>
-TRADEMASTER_JWT_SECRET=<long random HS512 secret>
-```
-
-Optional mail variables:
-
-```text
-TRADEMASTER_EMAIL_ENABLED=false
-TRADEMASTER_MAIL_USERNAME=
-TRADEMASTER_MAIL_PASSWORD=
-TRADEMASTER_EMAIL_FROM=
-TRADEMASTER_MAIL_DEBUG=false
-```
-
-Use a Gmail App Password when Gmail SMTP is enabled. Never commit credentials.
-
-## Build and run
-
-```bash
-./mvnw clean package
-java -jar target/trademaster_ims-0.0.1-SNAPSHOT.jar
-```
-
-The API listens on port 8080 by default. Angular development CORS origin is `http://localhost:4200`.
-
-## Architecture
-
-Controllers expose `/api` endpoints, services own transactional business rules, Spring Data repositories persist MySQL entities, Spring Security validates stateless JWTs, AOP records audit events, and Flyway-style SQL files document schema migrations. Approval and posting are separate payment states; only posted payments affect ledgers and balances.
-
-## Upload storage
-
-Files use the project-relative `uploads/` root:
-
-```text
-uploads/products
-uploads/customers
-uploads/suppliers
-uploads/product-variations
-uploads/profiles
-uploads/receipts
-uploads/payment-attachments
-```
-
-Directories are created automatically. Public display images have explicit static mappings. Receipts and payment attachments require authenticated download endpoints.
-
-## Security
-
-- Login and forgot-password endpoints are public; business APIs require JWT authentication.
-- User and role administration require ADMIN or SUPER_ADMIN.
-- Disabled users cannot authenticate.
-- Password hashes are write-only in JSON and never returned.
-- SMTP, database, and JWT secrets are environment-driven.
-- Audit sanitization excludes passwords, tokens, OTPs, and secret fields.
-
-## Known limitations
-
-- The automated test suite currently contains only a Spring context test.
-- Maven Central availability is required the first time Surefire provider artifacts are resolved.
-- Email delivery depends on external SMTP configuration.
-- Full financial workflow validation requires isolated test data and should not be run against production data.
-
-See `THIRD_PARTY_NOTICES.md` for direct dependency licensing.
+TRADEMASTER_JWT_SECRET=<long random HS512 secret containing at least 64 characters>
