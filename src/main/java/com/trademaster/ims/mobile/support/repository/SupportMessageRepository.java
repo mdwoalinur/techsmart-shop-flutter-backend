@@ -1,0 +1,3 @@
+package com.trademaster.ims.mobile.support.repository;
+import com.trademaster.ims.mobile.support.model.SupportMessage;import org.springframework.data.jpa.repository.JpaRepository;import java.util.List;
+public interface SupportMessageRepository extends JpaRepository<SupportMessage,Long>{List<SupportMessage>findByTicketIdAndCustomerVisibleTrueOrderByCreatedAtAsc(Long id);List<SupportMessage>findByTicketIdOrderByCreatedAtAsc(Long id);}

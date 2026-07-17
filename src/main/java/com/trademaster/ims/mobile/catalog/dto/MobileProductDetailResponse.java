@@ -6,4 +6,4 @@ import java.util.List;
 public record MobileProductDetailResponse(Long id, String productCode, String sku, String name,
         String description, BigDecimal sellingPrice, BigDecimal taxRate, String imageUrl,
         MobileCategorySummaryResponse category, MobileUnitSummaryResponse unit,
-        MobileStockAvailabilityResponse stock, List<MobileProductVariationResponse> variations) {}
+        MobileStockAvailabilityResponse stock, List<MobileProductVariationResponse> variations, java.math.BigDecimal averageRating, long reviewCount) {}

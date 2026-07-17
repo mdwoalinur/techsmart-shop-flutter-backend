@@ -8,6 +8,7 @@ import com.trademaster.ims.mobile.common.response.MobileFieldError;
 import com.trademaster.ims.model.*;
 import com.trademaster.ims.repository.*;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,13 +30,20 @@ public class MobileCatalogService {
     private final ProductVariationRepository variations;
     private final InventoryRepository inventory;
     private final UnitRepository units;
-    private final MobileCatalogMapper mapper;
+    private final MobileCatalogMapper mapper; private final com.trademaster.ims.mobile.reviews.service.CustomerReviewService reviews;
 
     public MobileCatalogService(ProductRepository products, CategoryRepository categories,
             ProductVariationRepository variations, InventoryRepository inventory,
             UnitRepository units, MobileCatalogMapper mapper) {
+        this(products, categories, variations, inventory, units, mapper, null);
+    }
+
+    @Autowired
+    public MobileCatalogService(ProductRepository products, CategoryRepository categories,
+            ProductVariationRepository variations, InventoryRepository inventory,
+            UnitRepository units, MobileCatalogMapper mapper, com.trademaster.ims.mobile.reviews.service.CustomerReviewService reviews) {
         this.products = products; this.categories = categories; this.variations = variations;
-        this.inventory = inventory; this.units = units; this.mapper = mapper;
+        this.inventory = inventory; this.units = units; this.mapper = mapper; this.reviews = reviews;
     }
 
     public List<MobileCategorySummaryResponse> categories(Long parentId, boolean rootOnly) {
@@ -66,8 +74,12 @@ public class MobileCatalogService {
         Category category = product.getCategoryId() == null ? null : categories.findByCategoryIdAndStatusTrue(product.getCategoryId()).orElse(null);
         Unit unit = product.getBaseUnitId() == null ? null : units.findById(product.getBaseUnitId()).filter(u -> Boolean.TRUE.equals(u.getStatus())).orElse(null);
         long stock = stockTotals(List.of(id)).getOrDefault(id, 0L);
-        return mapper.detail(product, category, unit,
+        MobileProductDetailResponse base = mapper.detail(product, category, unit,
                 variations.findByProductIdAndStatus(id, true), stock, request);
+        var summary = reviews == null ? new com.trademaster.ims.mobile.reviews.dto.ReviewDtos.ReviewSummaryResponse(id, BigDecimal.ZERO, 0L) : reviews.summary(id);
+        return new MobileProductDetailResponse(base.id(), base.productCode(), base.sku(), base.name(),
+                base.description(), base.sellingPrice(), base.taxRate(), base.imageUrl(), base.category(),
+                base.unit(), base.stock(), base.variations(), summary.averageRating(), summary.reviewCount());
     }
 
     private Page<MobileProductSummaryResponse> mapPage(Page<Product> page, HttpServletRequest request) {

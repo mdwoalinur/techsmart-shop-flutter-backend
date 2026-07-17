@@ -1,0 +1,3 @@
+package com.trademaster.ims.mobile.help.controller;
+import com.trademaster.ims.mobile.help.dto.HelpDtos.FaqResponse;import com.trademaster.ims.mobile.help.service.HelpFaqService;import org.springframework.web.bind.annotation.*;import java.util.List;
+@RestController @RequestMapping("/api/mobile/v1/help/faqs")public class HelpFaqController{private final HelpFaqService s;public HelpFaqController(HelpFaqService s){this.s=s;}@GetMapping List<FaqResponse>list(@RequestParam(required=false)String category,@RequestParam(required=false)String q){return s.list(category,q);}@GetMapping("/{faqCode}")FaqResponse get(@PathVariable String faqCode){return s.get(faqCode);}}

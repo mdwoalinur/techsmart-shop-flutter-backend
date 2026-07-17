@@ -1,0 +1,2 @@
+package com.trademaster.ims.mobile.help.dto;
+public final class HelpDtos{private HelpDtos(){}public record FaqResponse(String faqCode,String category,String question,String answer,int displayOrder){} }

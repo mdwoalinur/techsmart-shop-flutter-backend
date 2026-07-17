@@ -1,0 +1,3 @@
+package com.trademaster.ims.mobile.support.repository;
+import com.trademaster.ims.mobile.support.model.SupportTicket;import org.springframework.data.jpa.repository.JpaRepository;import java.util.*;
+public interface SupportTicketRepository extends JpaRepository<SupportTicket,Long>{boolean existsByTicketNumber(String n);Optional<SupportTicket>findByTicketNumberAndAccountId(String n,Long a);Optional<SupportTicket>findByTicketNumber(String n);List<SupportTicket>findByAccountIdOrderByUpdatedAtDesc(Long a);}

@@ -1,0 +1,3 @@
+package com.trademaster.ims.mobile.help.repository;
+import com.trademaster.ims.mobile.help.model.HelpFaq;import org.springframework.data.jpa.repository.JpaRepository;import java.util.*;
+public interface HelpFaqRepository extends JpaRepository<HelpFaq,Long>{boolean existsByFaqCode(String c);Optional<HelpFaq>findByFaqCodeAndActiveTrue(String c);List<HelpFaq>findByActiveTrueOrderByCategoryAscDisplayOrderAscQuestionAsc();List<HelpFaq>findByActiveTrueAndCategoryIgnoreCaseOrderByDisplayOrderAscQuestionAsc(String c);}

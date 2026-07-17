@@ -43,7 +43,7 @@ public class MobileCatalogMapper {
                 .map(v -> variation(v, product.getSellingPrice(), stock, request)).toList();
         return new MobileProductDetailResponse(product.getId(), product.getProductCode(), product.getSku(),
                 product.getProductName(), product.getDescription(), product.getSellingPrice(), product.getTaxRate(),
-                imageUrls.resolve(product.getImageUrl(), request), category(category), unit(unit), stock, safeVariations);
+                imageUrls.resolve(product.getImageUrl(), request), category(category), unit(unit), stock, safeVariations, java.math.BigDecimal.ZERO, 0L);
     }
 
     private MobileProductVariationResponse variation(ProductVariation variation, BigDecimal basePrice,

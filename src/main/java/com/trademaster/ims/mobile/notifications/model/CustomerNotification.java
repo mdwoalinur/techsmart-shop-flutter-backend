@@ -7,13 +7,13 @@ import java.time.Instant;
 @Entity
 @Table(name="customer_notifications", indexes={@Index(name="idx_cust_notif_customer_created",columnList="customer_account_id,created_at"),@Index(name="idx_cust_notif_customer_read",columnList="customer_account_id,read_status"),@Index(name="idx_cust_notif_customer_category",columnList="customer_account_id,category"),@Index(name="idx_cust_notif_number",columnList="notification_number",unique=true),@Index(name="idx_cust_notif_event_key",columnList="event_key",unique=true)})
 public class CustomerNotification {
- public enum NotificationType { ORDER_CREATED, ORDER_CONFIRMED, ORDER_PROCESSING, ORDER_PACKED, ORDER_SHIPPED, ORDER_OUT_FOR_DELIVERY, ORDER_DELIVERED, ORDER_CANCEL_REQUESTED, ORDER_CANCEL_APPROVED, ORDER_CANCEL_REJECTED, RETURN_REQUESTED, RETURN_APPROVED, RETURN_REJECTED, PAYMENT_INITIATED, PAYMENT_PAID, PAYMENT_FAILED, PAYMENT_REVIEW_REQUIRED, PAYMENT_REJECTED, COD_PENDING, COD_PAYMENT_COLLECTED, COD_PAYMENT_RECONCILED, WALLET_PAYMENT_SUCCESS, MANUAL_PAYMENT_SUBMITTED, SYSTEM_MESSAGE, SECURITY_ALERT }
- public enum Category { ORDER, PAYMENT, RETURN, CANCELLATION, ACCOUNT, SYSTEM }
+ public enum NotificationType { ORDER_CREATED, ORDER_CONFIRMED, ORDER_PROCESSING, ORDER_PACKED, ORDER_SHIPPED, ORDER_OUT_FOR_DELIVERY, ORDER_DELIVERED, ORDER_CANCEL_REQUESTED, ORDER_CANCEL_APPROVED, ORDER_CANCEL_REJECTED, RETURN_REQUESTED, RETURN_APPROVED, RETURN_REJECTED, PAYMENT_INITIATED, PAYMENT_PAID, PAYMENT_FAILED, PAYMENT_REVIEW_REQUIRED, PAYMENT_REJECTED, COD_PENDING, COD_PAYMENT_COLLECTED, COD_PAYMENT_RECONCILED, WALLET_PAYMENT_SUCCESS, MANUAL_PAYMENT_SUBMITTED, SYSTEM_MESSAGE, SECURITY_ALERT, SUPPORT_TICKET_CREATED, SUPPORT_TICKET_UPDATED, SUPPORT_TICKET_CLOSED, REVIEW_SUBMITTED, REVIEW_APPROVED, REVIEW_REJECTED }
+ public enum Category { ORDER, PAYMENT, RETURN, CANCELLATION, ACCOUNT, SYSTEM, SUPPORT, REVIEW }
  public enum Severity { INFO, SUCCESS, WARNING, ERROR }
  public enum ReadStatus { UNREAD, READ }
  public enum Channel { IN_APP, EMAIL, BOTH }
  public enum DeliveryStatus { CREATED, IN_APP_DELIVERED, EMAIL_QUEUED, EMAIL_SENT, EMAIL_FAILED, EMAIL_DISABLED, SUPPRESSED_BY_PREFERENCE }
- public enum ActionType { OPEN_ORDER, OPEN_PAYMENT, OPEN_RETURN_REQUEST, OPEN_CANCELLATION_REQUEST, OPEN_PROFILE, NONE }
+ public enum ActionType { OPEN_ORDER, OPEN_PAYMENT, OPEN_RETURN_REQUEST, OPEN_CANCELLATION_REQUEST, OPEN_PROFILE, OPEN_SUPPORT_TICKET, OPEN_REVIEW, NONE }
  @Id @GeneratedValue(strategy=GenerationType.IDENTITY) private Long id;
  @Column(name="notification_number",nullable=false,unique=true,length=48) private String notificationNumber;
  @ManyToOne(fetch=FetchType.LAZY,optional=false) @JoinColumn(name="customer_account_id",nullable=false) private CustomerAccount customer;
